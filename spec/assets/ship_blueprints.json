@@ -1,0 +1,22 @@
+[
+  {
+    "type" : "carrier",
+    "length" : 5
+  },
+  {
+    "type" : "battle ship",
+    "length" : 4
+  },
+  {
+    "type" : "destroyer",
+    "length" : 3
+  },
+  {
+    "type" : "submarine",
+    "length" : 2
+  },
+  {
+    "type" : "patrol boat",
+    "length" : 2
+  }
+]
