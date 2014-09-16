@@ -40,16 +40,16 @@ describe GameEngine::Board do
     end
 
     describe "when coordinates do not overlap a Ship's Atom (a miss)" do
-      it "should not modify Atom" do
+      it "should not modify Salvo" do
         @board.place_salvo(GameEngine::Salvo.new, 4, 4)
-        expect(@placed_ship.atoms.any? { |atom| atom.hit }).to be_false
+        expect(@board.salvos.any? { |salvo| salvo.hit }).to be_false
       end
     end
 
     describe "when coordinates overlap a Ship's Atom (a hit)" do
-      it "should set Atom as hit" do
+      it "should set Salvo as hit" do
         @board.place_salvo(GameEngine::Salvo.new, 1, 2)
-        expect(@placed_ship.atoms.find { |atom| atom.x == 1 && atom.y == 2 }.hit).to be_true
+        expect(@board.salvos.find { |salvo| salvo.x == 1 && salvo.y == 2 }.hit).to be_true
       end
     end
   end

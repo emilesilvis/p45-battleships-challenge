@@ -33,7 +33,8 @@ module GameEngine
       salvo.x = x
       salvo.y = y
       atom = @ships.collect { |ship| ship.atoms }.flatten.find { |atom| atom.x == x && atom.y == y}
-      atom.hit = true unless atom.nil?
+      #atom.hit = true unless atom.nil?
+      salvo.hit = true unless atom.nil?
       @salvos << salvo
       salvo
     end
