@@ -30,13 +30,13 @@ module P45Rails
     # Eager load all value objects, as they may be instantiated from
     # YAML before the symbol is referenced
     config.before_initialize do |app|
-        app.config.paths.add 'lib/game_engine', :eager_load => true
+        app.config.paths.add 'lib', :eager_load => true
     end
 
     # Reload cached/serialized classes before every request (in development
     # mode) or on startup (in production mode)
     config.to_prepare do
-        Dir[ File.expand_path(Rails.root.join("lib/game_engine/*.rb")) ].each do |file|
+        Dir[ File.expand_path(Rails.root.join("lib/*/*.rb")) ].each do |file|
             require_dependency file
         end
     end
