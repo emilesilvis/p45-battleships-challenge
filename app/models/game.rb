@@ -6,5 +6,5 @@ class Game < ActiveRecord::Base
   validates :opponent_board, presence: true
 
   serialize :player_board
-  serialize :oppoenent_board
+  serialize :opponent_board
 end

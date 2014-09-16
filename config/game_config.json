@@ -1,0 +1,29 @@
+{
+  "ships" :
+  [
+    {
+      "type" : "carrier",
+      "quantity" : 1
+    },
+    {
+      "type" : "battle ship",
+      "quantity" : 1
+    },
+    {
+      "type" : "destroyer",
+      "quantity" : 1
+    },
+    {
+      "type" : "submarine",
+      "quantity" : 2
+    },
+    {
+      "type" : "patrol boat",
+      "quantity" : 2
+    }
+  ],
+  "board" : {
+    "width" : 10,
+    "height" : 10
+  }
+}
