@@ -9,7 +9,7 @@ module GameEngine
         end
       end
       board.salvos.each do |salvo|
-        @grid[salvo.x - 1][salvo.y - 1] = salvo if @grid[salvo.x - 1][salvo.y - 1].nil?
+        @grid[salvo.x - 1][salvo.y - 1] = salvo
       end
     end
 

@@ -33,7 +33,11 @@
         <td>[p]</td>
       <% end %>
     <% elsif column.class.to_s == 'GameEngine::Salvo' %>
+      <% if column.hit %>
+        <td>[x]</td>
+      <% else %>
       <td>///</td>
+      <% end %>
     <% else %>
       <td>ooo</td>
     <% end %>
