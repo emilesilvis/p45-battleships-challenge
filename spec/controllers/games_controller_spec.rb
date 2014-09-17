@@ -52,9 +52,8 @@ describe GamesController do
     end
 
     it "shows game" do
-      get :show
-      expect(assigns(:player_grid)).to_not be_nil
-      expect(assigns(:opponent_grid)).to_not be_nil
+      get :show, {id: @game.id}
+      expect(assigns(:game)).to_not be_nil
     end
   end
 
