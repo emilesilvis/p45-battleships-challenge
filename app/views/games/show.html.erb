@@ -1,30 +1,5 @@
-<%= @game.player_name %> < <%= @game.player_email %> >
+<h1>P45</h1>
+<%= render :partial => 'board', :locals => { board: @game.opponent_board } %>
 
-<h1>My board</h1>
-<table>
-<% @player_grid.transpose.each do |row| %>
-  <tr>
-  <% row.each do |column| %>
-    <% if column.class.to_s == 'GameEngine::Atom' %>
-      <% if column.ship.type == 'carrier' %>
-        <td>[c]</td>
-      <% elsif column.ship.type == 'battle ship' %>
-        <td>[b]</td>
-      <% elsif column.ship.type == 'destroyer' %>
-        <td>[d]</td>
-      <% elsif column.ship.type == 'submarine' %>
-        <td>[s]</td>
-      <% elsif column.ship.type == 'patrol boat' %>
-        <td>[p]</td>
-      <% end %>
-    <% elsif column.class.to_s == 'GameEngine::Salvo' %>
-      <td>///</td>
-    <% elsif column.class.to_s == 'GameEngine::Hit' %>
-      <td>[x]</td>
-    <% else %>
-      <td>ooo</td>
-    <% end %>
-  <% end %>
-  </tr>
-<% end %>
-<table>
+<h1><%= @game.player_name %></h1>
+<%= render :partial => 'board', :locals => { board: @game.player_board } %>

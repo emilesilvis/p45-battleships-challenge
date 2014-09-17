@@ -45,8 +45,6 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @player_grid = GameEngine::Grid.new(@game.player_board).grid
-    @opponent_grid = GameEngine::Grid.new(@game.opponent_board).grid
   end
 
   def edit

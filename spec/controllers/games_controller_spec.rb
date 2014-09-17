@@ -46,6 +46,18 @@ describe GamesController do
     end
   end
 
+  describe "GET #show" do
+    before do
+      @game = Game.create(session_id: 123, player_name: 'Test Player', player_email: 'player@test.com', player_board: GameEngine::Board.new(10, 10), opponent_board: GameEngine::Board.new(10, 10))
+    end
+
+    it "shows game" do
+      get :show
+      expect(assigns(:player_grid)).to_not be_nil
+      expect(assigns(:opponent_grid)).to_not be_nil
+    end
+  end
+
   describe "DELETE #destroy" do
     before do
       post :create, game: {player_name: 'Test Player', player_email: 'player@test.com'}
