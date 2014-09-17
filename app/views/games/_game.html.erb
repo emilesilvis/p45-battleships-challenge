@@ -1,6 +1,5 @@
 <li>
-  <%= gravatar_for(game.player_email, size: 25) %>
-  <%= game.player_email %>
-  (last played <%= time_ago_in_words(game.updated_at) %>)
+  <%= gravatar_for(game.player_email, size: 20) %>
+  <%= link_to "#{game.player_name} (played #{time_ago_in_words(game.updated_at)} ago)" , game %>
   | <%= link_to "delete", game, method: :delete, data: { confirm: "Are you sure?" } %>
 </li>
