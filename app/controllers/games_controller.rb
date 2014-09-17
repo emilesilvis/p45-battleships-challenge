@@ -51,7 +51,33 @@ class GamesController < ApplicationController
   end
 
   def update
+    # Battle interaction
+
+    # Find game
     @game = Game.find(params[:id])
+
+    # Call API with x and y of salvo
+    # Do real call
+    response = {"status" => "miss", "x" => 3, "y" => 7}
+
+    # Check for error in response["error"]
+
+    # Check for game_status in response["game_status"]
+
+    # Check for prize in response["prize"]
+
+    # Check for sunk in response["sunk"]
+
+    # Add a Salvo or Hit to opponent board
+    @game.opponent_board.place_salvo(params[:x].to_i, params[:y].to_i)
+
+    # Add a Salvo or Hit to player board
+    @game.player_board.place_salvo(response["x"], response["x"])
+
+    # Save game
+    @game.save
+
+    # Redirect back to game
     redirect_to game_path(@game)
   end
 

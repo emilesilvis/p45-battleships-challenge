@@ -27,7 +27,7 @@ module GamesHelper
     end
   end
   def cell_link(character, x, y)
-    link_to(character, {:controller => "games", :action => "update", :x => x, :y => y })
+    link_to(character, {:controller => "games", :action => "update", :x => x, :y => y }, { :method => :patch })
   end
 end
 
