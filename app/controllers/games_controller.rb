@@ -45,8 +45,8 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @player_grid = GameEngine::Grid.new(@game.player_board).data
-    @opponent_grid = GameEngine::Grid.new(@game.opponent_board).data
+    @player_grid = GameEngine::Grid.new(@game.player_board).grid
+    @opponent_grid = GameEngine::Grid.new(@game.opponent_board).grid
   end
 
   def edit
@@ -57,8 +57,8 @@ class GamesController < ApplicationController
 
   def destroy
     @game = Game.find(params[:id]).destroy
-    flash[:success] = "User deleted."
-    redirect_to 'index'
+    flash[:success] = "Game deleted."
+    redirect_to games_path
   end
 
   private

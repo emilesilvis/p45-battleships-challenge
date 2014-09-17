@@ -1,20 +1,5 @@
 <%= @game.player_name %> < <%= @game.player_email %> >
 
-<h1>Opponent board</h1>
-<table>
-<% @opponent_grid.transpose.each do |row| %>
-  <tr>
-  <% row.each do |column| %>
-    <% if column.class.to_s == 'GameEngine::Salvo' %>
-      <td>///</td>
-    <% else %>
-      <td>ooo</td>
-    <% end %>
-  <% end %>
-  </tr>
-<% end %>
-<table>
-
 <h1>My board</h1>
 <table>
 <% @player_grid.transpose.each do |row| %>
