@@ -45,4 +45,15 @@ describe GamesController do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    before do
+      post :create, game: {player_name: 'Test Player', player_email: 'player@test.com'}
+      @game = assigns(:game)
+    end
+    it "is destroyed" do
+      delete :destroy, {id: @game.id}
+      expect{ Game.find(@game.id) }.to raise_error("Couldn't find Game with id=#{@game.id}")
+    end
+  end
 end

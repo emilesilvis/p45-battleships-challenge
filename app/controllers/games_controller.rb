@@ -56,6 +56,9 @@ class GamesController < ApplicationController
   end
 
   def destroy
+    @game = Game.find(params[:id]).destroy
+    flash[:success] = "User deleted."
+    redirect_to 'index'
   end
 
   private
