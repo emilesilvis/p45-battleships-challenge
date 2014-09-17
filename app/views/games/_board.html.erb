@@ -1,28 +1,10 @@
 <% grid = GameEngine::Grid.new(board).grid %>
 
 <table>
-<% grid.transpose.each do |row| %>
+<% grid.transpose.each_with_index do |row, row_index| %>
   <tr>
-  <% row.each do |column| %>
-    <% if column.class.to_s == 'GameEngine::Atom' %>
-      <% if column.ship.type == 'carrier' %>
-        <td>[c]</td>
-      <% elsif column.ship.type == 'battle ship' %>
-        <td>[b]</td>
-      <% elsif column.ship.type == 'destroyer' %>
-        <td>[d]</td>
-      <% elsif column.ship.type == 'submarine' %>
-        <td>[s]</td>
-      <% elsif column.ship.type == 'patrol boat' %>
-        <td>[p]</td>
-      <% end %>
-    <% elsif column.class.to_s == 'GameEngine::Salvo' %>
-      <td>///</td>
-    <% elsif column.class.to_s == 'GameEngine::Hit' %>
-      <td>[x]</td>
-    <% else %>
-      <td>ooo</td>
-    <% end %>
+  <% row.each_with_index do |column, column_index| %>
+  <td><%= render_cell(column, column_index + 1, row_index + 1, render_links) %><td>
   <% end %>
   </tr>
 <% end %>

@@ -51,6 +51,8 @@ class GamesController < ApplicationController
   end
 
   def update
+    @game = Game.find(params[:id])
+    redirect_to game_path(@game)
   end
 
   def destroy
