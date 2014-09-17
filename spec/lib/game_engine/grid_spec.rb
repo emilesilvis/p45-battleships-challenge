@@ -9,7 +9,7 @@ describe GameEngine::Grid do
       @board.place_ship(@ship, 1, 2, 1, 3)
       @board.place_salvo(4, 4)
       @board.place_salvo(1, 2)
-      @grid = GameEngine::Grid.new(@board).data
+      @grid = GameEngine::Grid.new(@board).grid
     end
 
 

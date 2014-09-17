@@ -7,7 +7,7 @@ class ASCIIRenderer
   end
 
   def render
-    grid = GameEngine::Grid.new(@board).data.transpose
+    grid = GameEngine::Grid.new(@board).grid.transpose
 
     board_string = ""
 
