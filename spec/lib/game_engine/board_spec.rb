@@ -26,7 +26,7 @@ describe GameEngine::Board do
   end
 
   describe "#place_salvo" do
-    subject(:added_salvo) { @board.place_salvo(GameEngine::Salvo.new, 1, 2) }
+    subject(:added_salvo) { @board.place_salvo(1, 2) }
 
     it { expect(added_salvo).to be_a GameEngine::Salvo }
 
@@ -40,16 +40,16 @@ describe GameEngine::Board do
     end
 
     describe "when coordinates do not overlap a Ship's Atom (a miss)" do
-      it "should not modify Salvo" do
-        @board.place_salvo(GameEngine::Salvo.new, 4, 4)
-        expect(@board.salvos.any? { |salvo| salvo.hit }).to be_false
+      it "should not be a Hit" do
+        @board.place_salvo(4, 4)
+        expect(@board.hits.any? { |hit| hit }).to be_false
       end
     end
 
     describe "when coordinates overlap a Ship's Atom (a hit)" do
-      it "should set Salvo as hit" do
-        @board.place_salvo(GameEngine::Salvo.new, 1, 2)
-        expect(@board.salvos.find { |salvo| salvo.x == 1 && salvo.y == 2 }.hit).to be_true
+      it "should be a Hit" do
+        @board.place_salvo(1, 2)
+        expect(@board.hits.find { |hit| hit.x == 1 && hit.y == 2 }).to be_true
       end
     end
   end

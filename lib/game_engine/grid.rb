@@ -11,6 +11,9 @@ module GameEngine
       board.salvos.each do |salvo|
         @grid[salvo.x - 1][salvo.y - 1] = salvo
       end
+      board.hits.each do |hit|
+        @grid[hit.x - 1][hit.y - 1] = hit
+      end
     end
 
     def data

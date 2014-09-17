@@ -4,13 +4,14 @@ require_relative './atom.rb'
 module GameEngine
   class Board
 
-    attr_reader :width, :height, :ships, :salvos
+    attr_reader :width, :height, :ships, :salvos, :hits
 
     def initialize(width, height)
       @width = width
       @height = height
       @ships = []
       @salvos = []
+      @hits = []
     end
 
     def place_ship(ship, start_x, start_y, end_x, end_y)
@@ -28,14 +29,14 @@ module GameEngine
       ship
     end
 
-    def place_salvo(salvo, x, y)
+    def place_salvo(x, y)
+      salvo = GameEngine::Salvo.new
       PlacementValidator.new.validate_salvo_placement!(self, salvo, x, y)
       salvo.x = x
       salvo.y = y
-      atom = @ships.collect { |ship| ship.atoms }.flatten.find { |atom| atom.x == x && atom.y == y}
-      #atom.hit = true unless atom.nil?
-      salvo.hit = true unless atom.nil?
       @salvos << salvo
+      atom = @ships.collect { |ship| ship.atoms }.flatten.find { |atom| atom.x == x && atom.y == y}
+      @hits << GameEngine::Hit.new(x, y) unless atom.nil?
       salvo
     end
 
