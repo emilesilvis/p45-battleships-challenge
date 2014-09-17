@@ -34,7 +34,7 @@ class GamesController < ApplicationController
     @game.session_id = response["id"]
 
     #Place first salvo on my board
-    player_board.place_salvo(GameEngine::Salvo.new, response["x"], response["y"])
+    player_board.place_salvo(response["x"], response["y"])
 
     if @game.save
       redirect_to game_path(@game)

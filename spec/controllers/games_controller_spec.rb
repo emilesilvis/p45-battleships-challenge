@@ -13,7 +13,7 @@ describe GamesController do
   end
 
   describe "POST #create" do
-    context "with valid paramaters" do
+    context "with invalid paramaters" do
       before do
         post :create, game: {player_name: 'Test Player'}
       end
@@ -29,7 +29,7 @@ describe GamesController do
       end
     end
 
-    context "with invalid parameters" do
+    context "with valid parameters" do
       before do
         post :create, game: {player_name: 'Test Player', player_email: 'player@test.com'}
       end
