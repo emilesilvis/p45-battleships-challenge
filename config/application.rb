@@ -25,21 +25,22 @@ module P45Rails
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.autoload_paths << Rails.root.join('lib/game_engine')
+    #config.autoload_paths << Rails.root.join('app/models/game_engine')
+    #config.autoload_paths << Rails.root.join('app/models/api_client')
 
     # Eager load all value objects, as they may be instantiated from
     # YAML before the symbol is referenced
-    config.before_initialize do |app|
-        app.config.paths.add 'lib', :eager_load => true
-    end
+    #config.before_initialize do |app|
+    #  app.config.paths.add 'app/models', :eager_load => true
+    #end
 
     # Reload cached/serialized classes before every request (in development
     # mode) or on startup (in production mode)
-    config.to_prepare do
-        Dir[ File.expand_path(Rails.root.join("lib/*/*.rb")) ].each do |file|
-            require_dependency file
-        end
-    end
+    #config.to_prepare do
+    #    Dir[ File.expand_path(Rails.root.join("app/models/*/*.rb")) ].each do |file|
+    #        require_dependency file
+    #    end
+    #end
 
   end
 end

@@ -1,5 +1,5 @@
 <h1>P45</h1>
-<%= render :partial => 'board', :locals => { board: @game.opponent_board, :render_links => true } %>
+<%= render :partial => 'board', :locals => { board: @game.opponent_board, grid: @opponent_grid,:render_links => true } %>
 
 <h1><%= @game.player_name %></h1>
-<%= render :partial => 'board', :locals => { board: @game.player_board, :render_links => false } %>
+<%= render :partial => 'board', :locals => { board: @game.player_board, grid: @player_grid, :render_links => false } %>

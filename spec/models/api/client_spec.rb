@@ -1,8 +1,8 @@
 require 'spec_helper.rb'
 
-describe APIClient::Client do
+describe Api::Client do
 
-  subject(:api_client) { APIClient::Client.new('http://battle.platform45.com') }
+  subject(:api_client) { Api::Client.new('http://battle.platform45.com') }
 
   describe "#register" do
     before do

@@ -1,6 +1,6 @@
-require 'nestful'
+#require 'nestful'
 
-module APIClient
+module Api
   class Client
 
     def initialize(endpoint)

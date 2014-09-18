@@ -1,5 +1,5 @@
 # A small class to help me visualise the grid during development
-require_relative '../../lib/game_engine/grid.rb'
+require_relative '../../app/models/game_engine/grid.rb'
 
 class ASCIIRenderer
   def initialize(board)
