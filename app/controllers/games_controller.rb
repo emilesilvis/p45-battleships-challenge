@@ -8,34 +8,10 @@ class GamesController < ApplicationController
   end
 
   def create
-
-    #Register interaction
-
-    # Empty game object
-    @game = Game.new
-
-    # Set name and email
-    player_name = game_params[:player_name]
-    player_email = game_params[:player_email]
-    @game.player_name = player_name
-    @game.player_email = player_email
-
-    # Set up boards
-    player_board = GameEngine::BoardSetuper.new(Rails.root.join("config/game_config.json"), Rails.root.join("config/ship_blueprints.json")).setup
-    opponent_board = GameEngine::Board.new(10, 10)
-    @game.player_board = player_board
-    @game.opponent_board = opponent_board
-
-    # Call API with player_name and player_email, get session_id and x and y of first salvo
-    player_name = game_params[:player_name]
-    player_email = game_params[:player_email]
-    # Do real call
-    response = {"id" => "3309", "x" => 2, "y" => 6}
-    @game.session_id = response["id"]
-
-    #Place first salvo on my board
-    player_board.place_salvo(response["x"], response["y"])
-
+    @game = Game.new(player_name: game_params[:player_name], player_email: game_params[:player_email])
+    if @game.valid?
+      @game.register(game_params[:player_name], game_params[:player_email])
+    end
     if @game.save
       redirect_to game_path(@game)
     else
@@ -47,43 +23,15 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
 
-  def edit
-  end
-
   def update
-    # Battle interaction
-
-    # Find game
     @game = Game.find(params[:id])
-
-    # Call API with x and y of salvo
-    # Do real call
-    response = {"status" => "miss", "x" => 3, "y" => 7}
-
-    # Check for error in response["error"]
-
-    # Check for game_status in response["game_status"]
-
-    # Check for prize in response["prize"]
-
-    # Check for sunk in response["sunk"]
-
-    # Add a Salvo or Hit to opponent board
-    @game.opponent_board.place_salvo(params[:x].to_i, params[:y].to_i)
-
-    # Add a Salvo or Hit to player board
-    @game.player_board.place_salvo(response["x"], response["x"])
-
-    # Save game
-    @game.save
-
-    # Redirect back to game
+    @game.battle(params[:x], params[:y]).save
     redirect_to game_path(@game)
   end
 
   def destroy
     @game = Game.find(params[:id]).destroy
-    flash[:success] = "Game deleted."
+    flash[:success] = "Game deleted!"
     redirect_to games_path
   end
 
