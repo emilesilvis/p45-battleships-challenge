@@ -25,7 +25,10 @@ group :test do
   gem 'database_cleaner', github: 'bmabey/database_cleaner'
   gem 'webmock'
   gem 'vcr'
+  gem 'simplecov', :require => false
 end
+
+gem "rubycritic", :require => false, :group => :development
 
 gem 'sass-rails', '4.0.3'
 gem 'uglifier', '2.1.1'
