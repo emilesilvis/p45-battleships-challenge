@@ -11,8 +11,6 @@ class GamesController < ApplicationController
     @game = Game.new(player_name: game_params[:player_name], player_email: game_params[:player_email])
     if @game.valid?
       @game.register(game_params[:player_name], game_params[:player_email])
-    end
-    if @game.save
       redirect_to game_path(@game)
     else
       render 'new'
@@ -25,7 +23,7 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-    @game.battle(params[:x], params[:y]).save
+    @game.battle(params[:x], params[:y])
     redirect_to game_path(@game)
   end
 

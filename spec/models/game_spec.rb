@@ -34,14 +34,4 @@ describe Game do
     end
   end
 
-  describe "when player_board is not present" do
-    before { @game.player_board = nil }
-    xit { expect(@game).to_not be_valid }
-  end
-
-  describe "when opponent_board is not present" do
-    before { @game.opponent_board = nil }
-    xit { expect(@game).to_not be_valid }
-  end
-
 end

@@ -2,8 +2,6 @@ class Game < ActiveRecord::Base
   validates :player_name, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :player_email, presence: true, format: { with: VALID_EMAIL_REGEX}
-  #validates :player_board, presence: true
-  #validates :opponent_board, presence: true
 
   serialize :player_board
   serialize :opponent_board
@@ -21,6 +19,8 @@ class Game < ActiveRecord::Base
     self.session_id = response["id"]
 
     self.player_board.place_salvo(response["x"], response["y"])
+
+    self.save
 
     self
   end
@@ -40,6 +40,8 @@ class Game < ActiveRecord::Base
 
     # Add a Salvo or Hit to player board
     self.player_board.place_salvo(response["x"], response["x"])
+
+    self.save
 
     self
   end
