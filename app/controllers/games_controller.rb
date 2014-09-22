@@ -10,8 +10,12 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(player_name: game_params[:player_name], player_email: game_params[:player_email])
     if @game.valid?
-      @game.register(game_params[:player_name], game_params[:player_email])
-      redirect_to game_path(@game)
+      begin
+        @game.register(game_params[:player_name], game_params[:player_email])
+        redirect_to game_path(@game)
+      rescue => e
+        render 'error', :locals => { error: e }
+      end
     else
       render 'new'
     end
@@ -25,8 +29,12 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-    @game.battle(params[:x], params[:y])
-    redirect_to game_path(@game)
+    begin
+      @game.battle(params[:x], params[:y])
+      redirect_to game_path(@game)
+    rescue => e
+      render 'error', :locals => { error: e }
+    end
   end
 
   def destroy

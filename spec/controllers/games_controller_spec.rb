@@ -30,6 +30,15 @@ describe GamesController do
   end
 
   describe "POST #create" do
+    context "with API error" do
+      it "renders error view" do
+        VCR.use_cassette('register_error') do
+          post :create, game: {player_name: 'Test Player', player_email: 'player@test.com'}
+          expect(response).to render_template( 'error' )
+        end
+      end
+    end
+
     context "with invalid paramaters" do
       before do
         VCR.use_cassette('register') do
@@ -100,6 +109,15 @@ describe GamesController do
 
     it "redirects to show" do
       expect(response).to redirect_to( game_path(@game.id) )
+    end
+
+    context "when there is an API error" do
+      it "renders error view" do
+       VCR.use_cassette('nuke_error') do
+          patch :update, {id: @game.id, x: 1, y: 1}
+          expect(response).to render_template( 'error' )
+        end
+      end
     end
   end
 
