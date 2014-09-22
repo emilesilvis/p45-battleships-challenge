@@ -29,12 +29,13 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
-    begin
+    #begin
       @game.battle(params[:x], params[:y])
       redirect_to game_path(@game)
-    rescue => e
-      render 'error', :locals => { error: e }
-    end
+    #rescue => e
+    #  puts e.inspect
+    #  render 'error', :locals => { error: e }
+    #end
   end
 
   def destroy

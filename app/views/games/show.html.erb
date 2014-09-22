@@ -3,3 +3,12 @@
 
 <h1><%= @game.player_name %></h1>
 <%= render :partial => 'board', :locals => { board: @game.player_board, grid: @player_grid, :render_links => false } %>
+
+<h1>Sunk ships</h1>
+<% if @game.sunk_ships %>
+  <ul>
+  <% @game.sunk_ships.each do |sunken_ship| %>
+    <li><%= sunken_ship %></li>
+  <% end %>
+  </ul>
+<% end %>

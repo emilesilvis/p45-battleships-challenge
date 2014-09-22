@@ -1,4 +1,5 @@
 class Game < ActiveRecord::Base
+
   validates :player_name, presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :player_email, presence: true, format: { with: VALID_EMAIL_REGEX}
@@ -47,14 +48,15 @@ class Game < ActiveRecord::Base
     end
 
     def place_salvos(x, y, response)
-      self.opponent_board.place_salvo(x.to_i, y.to_i)
+      self.opponent_board.place_ship(GameEngine::Ship.new('Unidentified', 1), x.to_i, y.to_i, x.to_i, y.to_i) if response[:status] == "hit"
+      self.opponent_board.place_salvo(x.to_i, y.to_i) if response[:status] == "miss"
       self.player_board.place_salvo(response[:x], response[:y])
     end
 
     def update_sunk_ships(response)
       if response[:sunk]
         if self.sunk_ships
-          self.sunk_ships << [response[:sunk]]
+          self.sunk_ships << response[:sunk]
         else
           self.sunk_ships = [response[:sunk]]
         end

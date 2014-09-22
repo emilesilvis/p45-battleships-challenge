@@ -26,7 +26,7 @@ describe Api::Client do
     context "when there's an API error" do
       it "should raise an error" do
         VCR.use_cassette('register_error') do
-          expect { api_client.register('Test Player', 'test@player.com') }.to raise_error "API error"
+          expect { api_client.register('Test Player', 'test@player.com') }.to raise_error "Some API error"
         end
       end
     end

@@ -21,7 +21,7 @@ module Api
 
       def call(action, data)
         response = Nestful.post("#{@endpoint}/#{action.to_s}", data, :format => :json)
-        check_for_api_error!(response)
+        check_for_api_error!(parse(response.body))
         response
       end
 
@@ -30,7 +30,7 @@ module Api
       end
 
       def check_for_api_error!(response)
-        fail "API error" if response["error"]
+        fail "#{response[:error]}" if response[:error]
       end
 
   end
