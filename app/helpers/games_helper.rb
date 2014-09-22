@@ -5,6 +5,7 @@ module GamesHelper
     gravatar_url = "https://secure.gravatar.com/avatar/#{gravatar_id}?s=#{size}"
     image_tag(gravatar_url, alt: email, class: "gravatar")
   end
+
   def render_cell(cell, x, y, render_link)
     if cell.class.to_s == 'GameEngine::Atom'
       if cell.ship.type == 'carrier'
@@ -26,8 +27,10 @@ module GamesHelper
       render_link ? cell_link('ooo', x, y) : 'ooo'
     end
   end
-  def cell_link(character, x, y)
-    link_to(character, {:controller => "games", :action => "update", :x => x, :y => y }, { :method => :patch })
-  end
+
+  private
+    def cell_link(character, x, y)
+      link_to(character, {:controller => "games", :action => "update", :x => x, :y => y }, { :method => :patch })
+    end
 end
 

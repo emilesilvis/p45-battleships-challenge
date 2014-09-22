@@ -29,6 +29,7 @@ group :test do
 end
 
 gem "rubycritic", :require => false, :group => :development
+gem 'pry-rails', :group => :development
 
 gem 'sass-rails', '4.0.3'
 gem 'uglifier', '2.1.1'
