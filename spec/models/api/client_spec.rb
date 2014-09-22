@@ -14,11 +14,21 @@ describe Api::Client do
     it "returns game id" do
       expect(@response[:id]).to_not be_nil
     end
+
     it "returns x coordinate of first salvo" do
       expect(@response[:x]).to_not be_nil
     end
+
     it "return y coordinate of first salvo" do
       expect(@response[:y]).to_not be_nil
+    end
+
+    context "when there's an API error" do
+      it "should raise an error" do
+        VCR.use_cassette('register_error') do
+          expect { api_client.register('Test Player', 'test@player.com') }.to raise_error "API error"
+        end
+      end
     end
   end
 

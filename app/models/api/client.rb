@@ -21,10 +21,16 @@ module Api
 
       def call(action, data)
         response = Nestful.post("#{@endpoint}/#{action.to_s}", data, :format => :json)
+        check_for_api_error!(response)
+        response
       end
 
       def parse(json)
         JSON.parse(json, :symbolize_names => true)
+      end
+
+      def check_for_api_error!(response)
+        fail "API error" if response["error"]
       end
 
   end

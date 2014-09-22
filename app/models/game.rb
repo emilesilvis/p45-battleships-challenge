@@ -5,41 +5,65 @@ class Game < ActiveRecord::Base
 
   serialize :player_board
   serialize :opponent_board
+  serialize :sunk_ships
 
   def register(name, email)
-    api_response = api_client.register(name, email)
-    check_api_response!(api_response)
-    self.player_name = name
-    self.player_email = email
-    self.player_board = GameEngine::BoardSetuper.new(Rails.root.join("config/game_config.json"), Rails.root.join("config/ship_blueprints.json")).setup
-    self.opponent_board = GameEngine::Board.new(10, 10)
-    self.session_id = api_response[:id]
-    self.player_board.place_salvo(api_response[:x], api_response[:y])
+    response = api_client.register(name, email)
+    save_game_details(name, email, response)
+    initialise_first_turn(name, email, response)
     self.save
     self
   end
 
   def battle(x, y)
-    api_response = api_client.nuke(self.session_id, x, y)
-    check_api_response!(api_response)
-    self.opponent_board.place_salvo(x.to_i, y.to_i)
-    self.player_board.place_salvo(api_response[:x], api_response[:y])
+    response = api_client.nuke(session_id, x, y)
+    place_salvos(x, y, response)
+    update_sunk_ships(response)
+    update_victory_status(response)
     self.save
     self
-
-    # Check for game_status in response["game_status"]
-    # Check for prize in response["prize"]
-    # Check for sunk in response["sunk"]
-
   end
 
   private
+
     def api_client
       Api::Client.new('http://battle.platform45.com')
     end
 
-    def check_api_response!(api_response)
-      fail "API error: #{api_response[:error]}" if api_response[:error]
+    def save_game_details(name, email, response)
+      self.player_name = name
+      self.player_email = email
+      self.session_id = response[:id]
+    end
+
+    def initialise_first_turn(name, email, response)
+      setup_boards
+      self.player_board.place_salvo(response[:x], response[:y])
+    end
+
+    def setup_boards
+      self.player_board = GameEngine::BoardSetuper.new(Rails.root.join("config/game_config.json"), Rails.root.join("config/ship_blueprints.json")).setup
+      self.opponent_board = GameEngine::Board.new(10, 10)
+    end
+
+    def place_salvos(x, y, response)
+      self.opponent_board.place_salvo(x.to_i, y.to_i)
+      self.player_board.place_salvo(response[:x], response[:y])
+    end
+
+    def update_sunk_ships(response)
+      if response[:sunk]
+        if self.sunk_ships
+          self.sunk_ships << [response[:sunk]]
+        else
+          self.sunk_ships = [response[:sunk]]
+        end
+      end
+    end
+
+    def update_victory_status(response)
+      self.over = true if response[:game_status] == "lost" || response[:prize]
+      self.prize = response[:prize] if response[:prize]
     end
 
 end

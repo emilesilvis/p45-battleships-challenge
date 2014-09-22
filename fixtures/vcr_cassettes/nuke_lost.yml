@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://battle.platform45.com/nuke
+    body:
+      encoding: UTF-8
+      string: '{"id":"3309","x":1,"y":1}'
+    headers:
+      Content-Type:
+      - application/json
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json
+      Content-Length:
+      - '29'
+      Connection:
+      - keep-alive
+      Status:
+      - 200 OK
+      X-Powered-By:
+      - Phusion Passenger 3.9.2.beta
+      Server:
+      - nginx/1.2.6 + Phusion Passenger 3.9.2.beta
+    body:
+      encoding: UTF-8
+      string: '{"status":"miss","x":2,"y":7, "game_status":"lost"}'
+    http_version: 
+  recorded_at: Tue, 16 Sep 2014 09:06:39 GMT
+recorded_with: VCR 2.9.3
