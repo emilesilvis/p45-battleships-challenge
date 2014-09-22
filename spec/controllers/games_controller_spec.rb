@@ -32,7 +32,9 @@ describe GamesController do
   describe "POST #create" do
     context "with invalid paramaters" do
       before do
-        post :create, game: {player_name: 'Test Player'}
+        VCR.use_cassette('register') do
+          post :create, game: {player_name: 'Test Player'}
+        end
       end
 
       it "is not valid" do
@@ -46,7 +48,9 @@ describe GamesController do
 
     context "with valid parameters" do
       before do
-        post :create, game: {player_name: 'Test Player', player_email: 'player@test.com'}
+        VCR.use_cassette('register') do
+          post :create, game: {player_name: 'Test Player', player_email: 'player@test.com'}
+        end
       end
 
       it "is valid" do
@@ -85,7 +89,9 @@ describe GamesController do
   describe "PATCH #update" do
     before do
       @game = Game.create(session_id: 123, player_name: 'Test Player', player_email: 'player@test.com', player_board: GameEngine::Board.new(10, 10), opponent_board: GameEngine::Board.new(10, 10))
-      patch :update, {id: @game.id, x: 1, y: 1}
+        VCR.use_cassette('nuke') do
+          patch :update, {id: @game.id, x: 1, y: 1}
+        end
     end
 
     it "has a game" do
@@ -99,7 +105,9 @@ describe GamesController do
 
   describe "DELETE #destroy" do
     before do
-      post :create, game: {player_name: 'Test Player', player_email: 'player@test.com'}
+      VCR.use_cassette('register') do
+        post :create, game: {player_name: 'Test Player', player_email: 'player@test.com'}
+      end
       @game = assigns(:game)
       delete :destroy, {id: @game.id}
     end

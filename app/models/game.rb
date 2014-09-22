@@ -7,43 +7,39 @@ class Game < ActiveRecord::Base
   serialize :opponent_board
 
   def register(name, email)
+    api_response = api_client.register(name, email)
+    check_api_response!(api_response)
     self.player_name = name
     self.player_email = email
-
     self.player_board = GameEngine::BoardSetuper.new(Rails.root.join("config/game_config.json"), Rails.root.join("config/ship_blueprints.json")).setup
     self.opponent_board = GameEngine::Board.new(10, 10)
-
-    # Call API with player_name and player_email, get session_id and x and y of first salvo
-    # Do real call
-    response = {"id" => "3309", "x" => 2, "y" => 6}
-    self.session_id = response["id"]
-
-    self.player_board.place_salvo(response["x"], response["y"])
-
+    self.session_id = api_response[:id]
+    self.player_board.place_salvo(api_response[:x], api_response[:y])
     self.save
-
     self
   end
 
   def battle(x, y)
-    # Call API with x and y of salvo
-    # Do real call
-    response = {"status" => "miss", "x" => 3, "y" => 7}
+    api_response = api_client.nuke(self.session_id, x, y)
+    check_api_response!(api_response)
+    self.opponent_board.place_salvo(x.to_i, y.to_i)
+    self.player_board.place_salvo(api_response[:x], api_response[:y])
+    self.save
+    self
 
-    # Check for error in response["error"]
     # Check for game_status in response["game_status"]
     # Check for prize in response["prize"]
     # Check for sunk in response["sunk"]
 
-    # Add a Salvo or Hit to opponent board
-    self.opponent_board.place_salvo(x.to_i, y.to_i)
-
-    # Add a Salvo or Hit to player board
-    self.player_board.place_salvo(response["x"], response["x"])
-
-    self.save
-
-    self
   end
+
+  private
+    def api_client
+      Api::Client.new('http://battle.platform45.com')
+    end
+
+    def check_api_response!(api_response)
+      fail "API error: #{api_response[:error]}" if api_response[:error]
+    end
 
 end
