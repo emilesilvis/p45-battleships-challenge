@@ -23,14 +23,18 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @player_grid = GameEngine::Grid.new(@game.player_board).grid
-    @opponent_grid = GameEngine::Grid.new(@game.opponent_board).grid
+    if @game.over
+      render 'over'
+    else
+      @player_grid = GameEngine::Grid.new(@game.player_board).grid
+      @opponent_grid = GameEngine::Grid.new(@game.opponent_board).grid
+    end
   end
 
   def update
     @game = Game.find(params[:id])
     begin
-      @game.battle(params[:x], params[:y])
+      @game.battle(params[:x].to_i, params[:y].to_i)
       redirect_to game_path(@game)
     rescue => e
       render 'error', :locals => { error: e }

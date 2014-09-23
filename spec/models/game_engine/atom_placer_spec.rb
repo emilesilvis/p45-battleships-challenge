@@ -52,7 +52,8 @@ describe GameEngine::AtomPlacer do
     describe "when a salvo and ship overlaps" do
       it "adds an atom that manifests as a hit to the board" do
         ship = GameEngine::Ship.new("Test Ship", 1)
-        board_with_placed_atom = @atom_placer.place_atom(ship, 1, 1)
+        @atom_placer.place_atom(ship, 1, 1)
+        @atom_placer.place_atom(:salvo, 1, 1)
         board_with_placed_atom = @atom_placer.place_atom(:salvo, 1, 1)
         expect(board_with_placed_atom.hits.any? { |hit| hit }).to be_true
       end

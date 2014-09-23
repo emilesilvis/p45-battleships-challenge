@@ -27,22 +27,22 @@ module GameEngine
     end
 
     def create_atom(manifestation, x, y)
-      atom = GameEngine::Atom.new(manifestation)
-      atom.x = x
-      atom.y = y
-      atom
-    end
-
-    def calculate_hits(manifestation, x, y)
-      if manifestation == :salvo
-        if @board.atoms.find { |atom| atom.manifestation.instance_of?(GameEngine::Ship) && atom.x == x && atom.y == y}
-          hit = GameEngine::Atom.new(:hit)
-          hit.x = x
-          hit.y = y
-          @board.atoms << hit
-        end
+      GameEngine::Atom.new(manifestation).tap do |atom|
+        atom.x = x
+        atom.y = y
       end
     end
 
+    def calculate_hits(manifestation, x, y)
+      atoms_at_coordinates = @board.atoms.select { |atom| atom.x == x && atom.y == y }
+      ship_atom = atoms_at_coordinates.find { |atom| atom.manifestation.instance_of?(GameEngine::Ship) }
+      salvo = atoms_at_coordinates.find { |atom| atom.manifestation == :salvo }
+      if ship_atom && salvo
+        hit = GameEngine::Atom.new(:hit)
+        hit.x = x
+        hit.y = y
+        @board.atoms << hit
+      end
+    end
   end
 end

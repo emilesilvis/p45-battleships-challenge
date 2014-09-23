@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 describe GameEngine::Grid do
 
@@ -7,10 +8,10 @@ describe GameEngine::Grid do
       @ship = GameEngine::Ship.new('Test Ship', 2)
       @board = GameEngine::Board.new(10, 10)
       ship_placer = GameEngine::ShipPlacer.new(@board)
-      ship_placer.place_ship(@ship, 1, 2, 1, 3)
       atom_placer = GameEngine::AtomPlacer.new(@board)
-      @board = atom_placer.place_atom(:salvo, 4, 4)
-      @board = atom_placer.place_atom(:salvo, 1, 2)
+      ship_placer.place_ship(@ship, 1, 2, 1, 3)
+      atom_placer.place_atom(:salvo, 4, 4)
+      atom_placer.place_atom(:salvo, 1, 2)
       @grid = GameEngine::Grid.new(@board).grid
     end
 

@@ -43,7 +43,7 @@ module GameEngine
       proposed_x_length = ((start_x - end_x).abs + 1)
       proposed_y_length = ((start_y - end_y).abs + 1)
       proposed_ship_area = (proposed_x_length * proposed_y_length)
-      proposed_ship_area != ship.length || proposed_x_length == proposed_y_length
+      proposed_ship_area != ship.length || proposed_x_length == proposed_y_length && proposed_ship_area != 1
     end
 
     def space_occupied?(ship, start_x, start_y, end_x, end_y)

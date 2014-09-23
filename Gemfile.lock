@@ -256,6 +256,7 @@ DEPENDENCIES
   jbuilder (= 1.0.2)
   jquery-rails (= 3.0.4)
   nestful
+  pry
   pry-rails
   rails (= 4.0.8)
   rspec-rails (= 2.13.1)

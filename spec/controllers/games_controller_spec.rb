@@ -73,25 +73,38 @@ describe GamesController do
   end
 
   describe "GET #show" do
-    before do
-      @game = Game.create(session_id: 123, player_name: 'Test Player', player_email: 'player@test.com', player_board: GameEngine::Board.new(10, 10), opponent_board: GameEngine::Board.new(10, 10))
-      get :show, {id: @game.id}
+    context "when the game is not over" do
+      before do
+        @game = Game.create(session_id: 123, player_name: 'Test Player', player_email: 'player@test.com', player_board: GameEngine::Board.new(10, 10), opponent_board: GameEngine::Board.new(10, 10))
+        get :show, {id: @game.id}
+      end
+
+      it "has a game" do
+        expect(assigns(:game)).to_not be_nil
+      end
+
+      it "has a player grid" do
+        expect(assigns(:player_grid)).to_not be_nil
+      end
+
+      it "has an opponent_grid" do
+        expect(assigns(:opponent_grid)).to_not be_nil
+      end
+
+      it "renders show view" do
+        expect(response).to render_template( 'show' )
+      end
     end
 
-    it "has a game" do
-      expect(assigns(:game)).to_not be_nil
-    end
+    context "when the game is over" do
+      before do
+        @game = Game.create(session_id: 123, player_name: 'Test Player', player_email: 'player@test.com', player_board: GameEngine::Board.new(10, 10), opponent_board: GameEngine::Board.new(10, 10), over: true)
+        get :show, {id: @game.id}
+      end
 
-    it "has a player grid" do
-      expect(assigns(:player_grid)).to_not be_nil
-    end
-
-    it "has an opponent_grid" do
-      expect(assigns(:opponent_grid)).to_not be_nil
-    end
-
-    it "renders show view" do
-      expect(response).to render_template( 'show' )
+      it "renders over view" do
+        expect(response).to render_template( 'over' )
+      end
     end
   end
 
