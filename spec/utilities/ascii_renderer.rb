@@ -25,11 +25,11 @@ class ASCIIRenderer
       board_string += (row_index + 1).to_s.ljust(2) + "|"
       row.each_with_index do |column, column_index|
         if column.class.to_s == "GameEngine::Atom"
-          board_string += "[c] " if column.ship.type == 'carrier'
-          board_string += "[b] " if column.ship.type == 'battle ship'
-          board_string += "[d] " if column.ship.type == 'destroyer'
-          board_string += "[s] " if column.ship.type == 'submarine'
-          board_string += "[p] " if column.ship.type == 'patrol boat'
+          board_string += "[c] " if column.manifestation.type == 'carrier'
+          board_string += "[b] " if column.manifestation.type == 'battle ship'
+          board_string += "[d] " if column.manifestation.type == 'destroyer'
+          board_string += "[s] " if column.manifestation.type == 'submarine'
+          board_string += "[p] " if column.manifestation.type == 'patrol boat'
         elsif column.class.to_s == "GameEngine::Salvo"
           if column.hit
             board_string += "[X] "

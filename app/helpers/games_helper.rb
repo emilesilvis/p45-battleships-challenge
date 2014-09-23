@@ -7,24 +7,26 @@ module GamesHelper
   end
 
   def render_cell(cell, x, y, render_link)
-    if cell.class.to_s == 'GameEngine::Atom'
-      if cell.ship.type == 'carrier'
-        render_link ? cell_link('[c]', x, y) : '[c]'
-      elsif cell.ship.type == 'battle ship'
-        render_link ? cell_link('[b]', x, y) : '[b]'
-      elsif cell.ship.type == 'destroyer'
-        render_link ? cell_link('[d]', x, y) : '[d]'
-      elsif cell.ship.type == 'submarine'
-        render_link ? cell_link('[s]', x, y) : '[s]'
-      elsif cell.ship.type == 'patrol boat'
-        render_link ? cell_link('[p]', x, y) : '[p]'
-      end
-    elsif cell.class.to_s == 'GameEngine::Salvo'
-      '///'
-    elsif cell.class.to_s == 'GameEngine::Hit'
-      '[x]'
-    else
+    if cell.nil?
       render_link ? cell_link('ooo', x, y) : 'ooo'
+    else
+      if cell.manifestation.class.to_s == 'GameEngine::Ship'
+        if cell.manifestation.type == 'carrier'
+          render_link ? cell_link('[c]', x, y) : '[c]'
+        elsif cell.manifestation.type == 'battle ship'
+          render_link ? cell_link('[b]', x, y) : '[b]'
+        elsif cell.manifestation.type == 'destroyer'
+          render_link ? cell_link('[d]', x, y) : '[d]'
+        elsif cell.manifestation.type == 'submarine'
+          render_link ? cell_link('[s]', x, y) : '[s]'
+        elsif cell.manifestation.type == 'patrol boat'
+          render_link ? cell_link('[p]', x, y) : '[p]'
+        end
+      elsif cell.manifestation == :salvo
+        '///'
+      elsif cell.manifestation == :hit
+        '[x]'
+      end
     end
   end
 

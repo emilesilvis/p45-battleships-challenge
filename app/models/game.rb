@@ -39,7 +39,8 @@ class Game < ActiveRecord::Base
 
     def initialise_first_turn(name, email, response)
       setup_boards
-      self.player_board.place_salvo(response[:x], response[:y])
+      atom_placer_for_player = GameEngine::AtomPlacer.new(self.player_board)
+      atom_placer_for_player.place_atom(:salvo, response[:x], response[:y])
     end
 
     def setup_boards
@@ -48,9 +49,13 @@ class Game < ActiveRecord::Base
     end
 
     def place_salvos(x, y, response)
-      self.opponent_board.place_ship(GameEngine::Ship.new('Unidentified', 1), x.to_i, y.to_i, x.to_i, y.to_i) if response[:status] == "hit"
-      self.opponent_board.place_salvo(x.to_i, y.to_i) if response[:status] == "miss"
-      self.player_board.place_salvo(response[:x], response[:y])
+      #self.opponent_board.place_ship(GameEngine::Ship.new('Unidentified', 1), x.to_i, y.to_i, x.to_i, y.to_i) if response[:status] == "hit"
+      atom_placer_for_opponent = GameEngine::AtomPlacer.new(self.opponent_board)
+      atom_placer_for_player = GameEngine::AtomPlacer.new(self.player_board)
+      atom_placer_for_opponent.place_atom(:salvo, x.to_i, y.to_i) if response[:status] == "miss"
+      atom_placer_for_player.place_atom(:salvo, response[:x], response[:y])
+      #self.opponent_board.place_atom(:salvo, x.to_i, y.to_i) if response[:status] == "miss"
+      #self.player_board.place_atom(:salvo, response[:x], response[:y])
     end
 
     def update_sunk_ships(response)

@@ -1,12 +1,11 @@
 module GameEngine
   class Atom
 
-    attr_reader :x, :y, :ship
+    attr_reader :manifestation
+    attr_accessor :x, :y
 
-    def initialize(x, y, ship)
-      @x = x
-      @y = y
-      @ship = ship
+    def initialize(manifestation)
+      @manifestation = manifestation
     end
 
   end

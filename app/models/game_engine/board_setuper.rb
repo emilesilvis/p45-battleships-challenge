@@ -25,6 +25,7 @@ module GameEngine
     private
 
       def place_ships_randomly(ship_set, board)
+        ship_placer = GameEngine::ShipPlacer.new(board)
         while !ship_set.empty?
           begin
             ship = ship_set.pop
@@ -32,7 +33,7 @@ module GameEngine
             start_y = rand(@game_config['board']['height'])
             end_x = rand(@game_config['board']['width'])
             end_y = rand(@game_config['board']['height'])
-            board.place_ship(ship, start_x, start_y, end_x, end_y)
+            ship_placer.place_ship(ship, start_x, start_y, end_x, end_y)
           rescue
             ship_set.push(ship)
           end
