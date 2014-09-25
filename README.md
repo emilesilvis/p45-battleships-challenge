@@ -1,5 +1,7 @@
 # P45 Battleships challenge
 
+Simon, please review :)
+
 ## Disclaimer
 
 - First serious Rails project (before this I've only done www.railstutorial.org).
