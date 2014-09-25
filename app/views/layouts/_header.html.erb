@@ -1,4 +1,12 @@
-<header>
-  <%= link_to "New", new_game_path %>
-  <%= link_to "Games", root_path %>
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-inner">
+    <div class="container">
+      <nav>
+        <ul class="nav pull-left">
+          <li><%= link_to "New", new_game_path %></li>
+          <li><%= link_to "Games", root_path %></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 </header>

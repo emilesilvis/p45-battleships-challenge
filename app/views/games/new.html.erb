@@ -1,7 +1,7 @@
 <% provide(:title, 'New game') %>
 <h1>New game</h1>
 
-<div>
+<div calss="row">
   <%= form_for(@game) do |f| %>
 
     <%= render 'shared/error_messages', object: f.object %>
@@ -12,6 +12,6 @@
     <%= f.label "Email" %>
     <%= f.text_field :player_email %>
 
-    <%= f.submit "Start game" %>
+    <%= f.submit "Start game", class: "btn btn-large btn-primary"  %>
   <% end %>
 </div>
