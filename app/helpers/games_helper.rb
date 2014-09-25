@@ -1,4 +1,6 @@
 module GamesHelper
+  MAN_HASH = { salvo: '///', hit: '[x]'}
+
   def gravatar_for(email, options)
     gravatar_id = Digest::MD5::hexdigest(email.downcase)
     size = options[:size]
@@ -13,10 +15,8 @@ module GamesHelper
       if cell.manifestation.class.to_s == 'GameEngine::Ship'
         cell_str = "[#{cell.manifestation.type.to_s[0]}]"
         render_link ? cell_link(game, cell_str, x, y) : cell_str
-      elsif cell.manifestation == :salvo
-        '///'
-      elsif cell.manifestation == :hit
-        '[x]'
+      else
+        MAN_HASH[cell.manifestation]
       end
     end
   end
