@@ -20,7 +20,7 @@ describe GamesHelper do
           ship = GameEngine::Ship.new('carrier', 2)
           @ship_placer.place_ship(ship, 1, 1, 1, 2)
           atom = @game.player_board.ships.first.atoms.first
-          expect(render_cell(atom, 2, 2, false)).to eq "[c]"
+          expect(render_cell(@game, atom, 2, 2, false)).to eq "[c]"
         end
       end
 
@@ -29,7 +29,7 @@ describe GamesHelper do
           ship = GameEngine::Ship.new('battle ship', 2)
           @ship_placer.place_ship(ship, 1, 1, 1, 2)
           atom = @game.player_board.ships.first.atoms.first
-          expect(render_cell(atom, 2, 2, false)).to eq "[b]"
+          expect(render_cell(@game, atom, 2, 2, false)).to eq "[b]"
         end
       end
 
@@ -38,7 +38,7 @@ describe GamesHelper do
           ship = GameEngine::Ship.new('destroyer', 2)
           @ship_placer.place_ship(ship, 1, 1, 1, 2)
           atom = @game.player_board.ships.first.atoms.first
-          expect(render_cell(atom, 2, 2, false)).to eq "[d]"
+          expect(render_cell(@game, atom, 2, 2, false)).to eq "[d]"
         end
       end
 
@@ -47,7 +47,7 @@ describe GamesHelper do
           ship = GameEngine::Ship.new('submarine', 2)
           @ship_placer.place_ship(ship, 1, 1, 1, 2)
           atom = @game.player_board.ships.first.atoms.first
-          expect(render_cell(atom, 2, 2, false)).to eq "[s]"
+          expect(render_cell(@game, atom, 2, 2, false)).to eq "[s]"
         end
       end
 
@@ -56,7 +56,7 @@ describe GamesHelper do
           ship = GameEngine::Ship.new('patrol boat', 2)
           @ship_placer.place_ship(ship, 1, 1, 1, 2)
           atom = @game.player_board.ships.first.atoms.first
-          expect(render_cell(atom, 2, 2, false)).to eq "[p]"
+          expect(render_cell(@game, atom, 2, 2, false)).to eq "[p]"
         end
       end
     end
@@ -65,7 +65,7 @@ describe GamesHelper do
       it "returns ///" do
         baord_with_placed_salvo = @atom_placer.place_atom(:salvo, 1, 1)
         salvo = baord_with_placed_salvo.salvos.find { |salvo| salvo.x == 1 && salvo.y == 1 }
-        expect(render_cell(salvo, 1, 1, false)).to eq "///"
+        expect(render_cell(@game, salvo, 1, 1, false)).to eq "///"
       end
     end
 
@@ -75,13 +75,13 @@ describe GamesHelper do
         @ship_placer.place_ship(ship, 1, 1, 1, 2)
         @atom_placer.place_atom(:salvo, 1, 1)
         hit = @game.player_board.hits.find { |hit| hit.x == 1 && hit.y == 1 }
-        expect(render_cell(hit, 1, 1, false)).to eq "[x]"
+        expect(render_cell(@game, hit, 1, 1, false)).to eq "[x]"
       end
     end
 
     context "when the cell is nothing" do
       it "returns ooo" do
-        expect(render_cell(nil, 1, 1, false)).to eq "ooo"
+        expect(render_cell(@game, nil, 1, 1, false)).to eq "ooo"
       end
     end
 

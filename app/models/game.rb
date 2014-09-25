@@ -13,7 +13,6 @@ class Game < ActiveRecord::Base
     save_game_details(name, email, response)
     initialise_first_turn(name, email, response)
     self.save
-    self
   end
 
   def battle(x, y)
@@ -23,7 +22,6 @@ class Game < ActiveRecord::Base
     update_sunk_ships(response)
     update_victory_status(response)
     self.save
-    self
   end
 
   private

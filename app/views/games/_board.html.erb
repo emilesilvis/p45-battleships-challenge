@@ -2,7 +2,7 @@
 <% grid.transpose.each_with_index do |row, row_index| %>
   <tr>
   <% row.each_with_index do |column, column_index| %>
-  <td><%= render_cell(column, column_index + 1, row_index + 1, render_links) %><td>
+  <td><%= render_cell(game, column, column_index + 1, row_index + 1, render_links) %><td>
   <% end %>
   </tr>
 <% end %>

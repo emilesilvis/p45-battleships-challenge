@@ -41,30 +41,30 @@ describe Game do
     let(:player_name) { "Test Player" }
     let(:player_email) { "player@test.com" }
 
-    subject(:board) do
+    before do
       VCR.use_cassette('register') do
         game.register(player_name, player_email)
       end
     end
 
     it "sets player's name" do
-      expect(board.player_name).to eq player_name
+      expect(game.player_name).to eq player_name
     end
 
     it "sets player's email" do
-      expect(board.player_email).to eq player_email
+      expect(game.player_email).to eq player_email
     end
 
     it "sets player's board" do
-      expect(board.player_board).to_not be_nil
+      expect(game.player_board).to_not be_nil
     end
 
     it "sets opponent's board" do
-      expect(board.opponent_board).to_not be_nil
+      expect(game.opponent_board).to_not be_nil
     end
 
     it "sets places opponent's first salvo on player's board" do
-      expect(board.player_board.salvos).to_not be_empty
+      expect(game.player_board.salvos).to_not be_empty
     end
   end
 
