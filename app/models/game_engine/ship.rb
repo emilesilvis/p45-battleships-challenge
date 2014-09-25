@@ -9,6 +9,5 @@ module GameEngine
       @length = length
       @atoms = []
     end
-
   end
 end

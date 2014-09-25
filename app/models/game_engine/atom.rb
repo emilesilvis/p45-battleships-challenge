@@ -7,6 +7,5 @@ module GameEngine
     def initialize(manifestation)
       @manifestation = manifestation
     end
-
   end
 end

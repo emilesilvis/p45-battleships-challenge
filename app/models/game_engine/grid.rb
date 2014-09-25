@@ -20,6 +20,5 @@ module GameEngine
       end
       @grid
     end
-
   end
 end

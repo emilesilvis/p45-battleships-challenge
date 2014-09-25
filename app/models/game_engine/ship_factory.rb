@@ -15,6 +15,5 @@ module GameEngine
       length = @blueprints.find {|ship| ship['type'] == type }['length']
       Ship.new(type, length)
     end
-
   end
 end

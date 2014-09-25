@@ -83,5 +83,4 @@ class Game < ActiveRecord::Base
     self.over = true if response[:game_status] == "lost"
     self.prize = response[:prize] if response[:prize]
   end
-
 end

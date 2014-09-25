@@ -65,6 +65,5 @@ module GameEngine
       end
       projected_atoms
     end
-
   end
 end

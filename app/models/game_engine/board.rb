@@ -17,6 +17,5 @@ module GameEngine
     def hits
       @atoms.select { |atom| atom.manifestation == :hit}
     end
-
   end
 end
